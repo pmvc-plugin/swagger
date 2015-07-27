@@ -1,0 +1,22 @@
+{
+    "name": "pmvc-plugin/swagger",
+    "description": "Swagger.io plugin for pmvc",
+    "type": "library",
+    "keywords": ["swagger", "pmvc", "plug-in"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hill",
+            "email": "hill@kimo.com"
+        }
+    ],
+    "require": {
+        "pmvc/pmvc": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "PMVC\\PlugIn\\swagger\\": "./src"
+        }
+    },
+    "minimum-stability": "dev"
+}
