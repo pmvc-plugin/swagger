@@ -35,6 +35,15 @@ class paths extends base
         $definitions = \PMVC\plug('swagger')->get('definitions'); 
         foreach ($this as $path) {
             foreach ($path as $method) {
+                if (!empty($method['tags'])) {
+                    if (empty($method['responses'])) {
+                        $method['responses'] = array ( 
+                            '200' => array(
+                                'description'=>'success'
+                            )
+                        );
+                    }
+                }
                 if (empty($method['parameters'])) {
                     continue;
                 }
