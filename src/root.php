@@ -4,24 +4,6 @@ namespace PMVC\PlugIn\swagger;
 class root extends base 
 {
 
-    public function offsetSet($k, $v=null)
-    {
-        $default = $this->getDefault();
-        if (!isset($default[$k])) {
-            trigger_error('key: '. $k. 'not exists in root');
-        }
-        parent::offsetSet($k, $v);
-    }
-
-    public function mergeDefault($inputs)
-    {
-        $arr = \PMVC\mergeDefault(
-            $this->getDefault(),
-            $inputs
-        );
-        \PMVC\set($this,$arr);
-    }
-
     public function getDefault()
     {
         return array(
@@ -33,7 +15,13 @@ class root extends base
                 'application/json'
             ),
            'paths'=>new paths(),
-           'definitions'=>new definitions()
+           'definitions'=>new definitions(),
+           'host'=>'',
+           'schemes'=>'',
+           'basePath'=>'',
+           'info'=>array(),
+           'securityDefinitions'=>new securityDefinitions()
         );
     }
+
 }

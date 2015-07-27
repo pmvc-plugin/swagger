@@ -4,12 +4,20 @@ namespace PMVC\PlugIn\swagger;
 abstract class base extends \PMVC\HashMap
 {
 
+
+    public function __construct($values=array())
+    {
+        if ( empty($this->values) ) {
+            $this->mergeDefault();
+        }
+    }
+
     public function offsetGet($k)
     {
         if (!$this->verify($k)) {
             return false;
         }
-        return parent::offsetGet($k, $v);
+        return parent::offsetGet($k);
     }
 
     public function offsetSet($k, $v=null)
@@ -20,18 +28,25 @@ abstract class base extends \PMVC\HashMap
         return parent::offsetSet($k, $v);
     }
 
-    public function verify()
+    public function verify($k)
     {
         $default = $this->getDefault();
-        if (!isset($default[$k])) {
-            trigger_error('key: '. $k. 'not exists in '.get_class($this));
+        if ($default && !isset($default[$k])) {
+            trigger_error('key: '. $k. ' not exists in '.get_class($this));
             return false;
         }
         return true;
     }
 
-    public function mergeDefault($inputs)
+
+    public function mergeDefault($inputs=array())
     {
+        if ( empty($this->getDefault()) ) {
+            return;
+        }
+        if (!\PMVC\isArray($inputs)) {
+            $inputs = array();
+        }
         $arr = \PMVC\mergeDefault(
             $this->getDefault(),
             $inputs
@@ -41,7 +56,15 @@ abstract class base extends \PMVC\HashMap
 
     public function getArr()
     {
-        return $this->values();     
+        foreach ($this->values as $k=>&$v) {
+            if (\PMVC\isArrayAccess($v)) {
+                $v = $v->getArr();
+            }
+            if (0!==$v && empty($v)) {
+                unset($this->values[$k]);
+            }
+        }
+        return $this->values;
     }
 
     abstract public function getDefault();

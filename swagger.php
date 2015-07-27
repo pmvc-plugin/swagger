@@ -5,25 +5,54 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\swagger';
 
 class swagger extends \PMVC\PlugIn
 {
-    private $swagger;
+    protected $swagger;
+
+    function init()
+    {
+        $this->swagger = new root();
+    }
 
     function get($k=null)
     {
-        if(empty($this->swagger)){
-            $this->swagger = new root();
+        if (is_null($k)) {
+            return $this->swagger;
         }
         return $this->swagger[$k];
     }
 
     function gen()
     {
-        $arr = $this->get()->getArr();
-        foreach ($arr as &$v) {
-            if (\PMVC\isArrayAccess($v)) {
-                $v = $v->getArr();
-            }
-        }
-        return $arr;
+        return $this->get()->getArr();
     }
 
+    public function setInfo($title, $version='1.0')
+    {
+        $this->swagger['info'] = array(
+            'title'=>$title,
+            'version'=>$version
+        );
+        return $this;
+    }
+
+    public function setUrl($url)
+    {
+        $uri = parse_url($url);
+        $this->swagger['host']=$uri['host'];
+        $this->swagger['schemes']=array($uri['scheme']);
+        $this->swagger['basePath']=$uri['path'];
+        return $this;
+    }
+
+    /**
+     *    {
+     *        type: "apiKey",
+     *        name: "api_key",
+     *        in: "header"
+     *    }
+     */
+    public function setSecurity($key,$arr)
+    {
+        $this->swagger['securityDefinitions'][$key] = $arr;
+        return $this;
+    }
 }
