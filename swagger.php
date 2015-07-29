@@ -31,7 +31,7 @@ class swagger extends \PMVC\PlugIn
             'title'=>$title,
             'version'=>$version
         );
-        return $this;
+        return $this['this'];
     }
 
     public function setUrl($url)
@@ -40,7 +40,7 @@ class swagger extends \PMVC\PlugIn
         $this->swagger['host']=$uri['host'];
         $this->swagger['schemes']=array($uri['scheme']);
         $this->swagger['basePath']=$uri['path'];
-        return $this;
+        return $this['this'];
     }
 
     /**
@@ -53,6 +53,6 @@ class swagger extends \PMVC\PlugIn
     public function setSecurity($key,$arr)
     {
         $this->swagger['securityDefinitions'][$key] = $arr;
-        return $this;
+        return $this['this'];
     }
 }
