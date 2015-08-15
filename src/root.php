@@ -20,6 +20,7 @@ class root extends base
            'schemes'=>'',
            'basePath'=>'',
            'info'=>array(),
+           'tags'=>new tags(),
            'securityDefinitions'=>new securityDefinitions()
         );
     }

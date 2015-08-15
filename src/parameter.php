@@ -9,8 +9,18 @@ class parameter extends base
             'type'=>'',
             'name'=>'',
             'in'=>'',
-            'required'=>'',
+            'required'=>false,
+            'description'=>'',
             'schema'=>''
         );
+    }
+
+
+    public function getArr()
+    {
+        if ('path'===$this->values['in']) {
+            $this->values['required'] = true;
+        }
+        return parent::getArr();
     }
 }

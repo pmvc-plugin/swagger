@@ -60,7 +60,7 @@ abstract class base extends \PMVC\HashMap
             if (\PMVC\isArrayAccess($v)) {
                 $v = $v->getArr();
             }
-            if (0!==$v && empty($v)) {
+            if (0!==$v && false!==$v && empty($v)) {
                 unset($this->values[$k]);
             }
         }
