@@ -6,7 +6,7 @@ class definitions extends base
     public function offsetGet($k)
     {
         if (!isset($this[$k])) {
-            $this->values[$k] = new definition();
+            $this[$k] = new definition();
         }
         return parent::offsetGet($k);
     }

@@ -11,7 +11,7 @@ class paths extends base
     public function offsetGet($k)
     {
         if (!isset($this[$k])) {
-            $this->values[$k] = new path();
+            $this[$k] = new path();
         }
         return parent::offsetGet($k);
     }

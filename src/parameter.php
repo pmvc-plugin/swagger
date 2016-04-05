@@ -18,8 +18,8 @@ class parameter extends base
 
     public function getArr()
     {
-        if ('path'===$this->values['in']) {
-            $this->values['required'] = true;
+        if ('path'===$this['in']) {
+            $this['required'] = true;
         }
         return parent::getArr();
     }

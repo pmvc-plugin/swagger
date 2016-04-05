@@ -7,7 +7,7 @@ abstract class base extends \PMVC\HashMap
 
     public function __construct($values=array())
     {
-        if ( empty($this->values) ) {
+        if ( !count($this) ) {
             $this->mergeDefault();
         }
     }
@@ -56,15 +56,15 @@ abstract class base extends \PMVC\HashMap
 
     public function getArr()
     {
-        foreach ($this->values as $k=>&$v) {
+        foreach ($this as $k=>&$v) {
             if (\PMVC\isArrayAccess($v)) {
                 $v = $v->getArr();
             }
             if (0!==$v && false!==$v && empty($v)) {
-                unset($this->values[$k]);
+                unset($this[$k]);
             }
         }
-        return $this->values;
+        return \PMVC\get($this);
     }
 
     abstract public function getDefault();

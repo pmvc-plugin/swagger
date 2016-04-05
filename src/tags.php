@@ -6,7 +6,7 @@ class tags extends base
     public function offsetGet($k)
     {
         if (!isset($this[$k])) {
-            $this->values[$k] = new tag();
+            $this[$k] = new tag();
         }
         return parent::offsetGet($k);
     }
