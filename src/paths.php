@@ -8,9 +8,9 @@ class paths extends base
         return null;
     }
 
-    public function offsetGet($k)
+    public function offsetGet($k=null)
     {
-        if (!isset($this[$k])) {
+        if (!is_null($k) && !isset($this[$k])) {
             $this[$k] = new path();
         }
         return parent::offsetGet($k);
@@ -18,7 +18,7 @@ class paths extends base
 
     public function offsetSet($k, $v=null)
     {
-        if (!is_object($v) || 'path'!=get_class($v)) {
+        if (!is_object($v) || __NAMESPACE__.'\path' !== get_class($v)) {
             trigger_error('input object not path() '. print_r($v,true));
         }
         return parent::offsetSet($k,$v);

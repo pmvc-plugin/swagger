@@ -3,9 +3,9 @@ namespace PMVC\PlugIn\swagger;
 
 class definitions extends base 
 {
-    public function offsetGet($k)
+    public function offsetGet($k=null)
     {
-        if (!isset($this[$k])) {
+        if (!is_null($k) && !isset($this[$k])) {
             $this[$k] = new definition();
         }
         return parent::offsetGet($k);
