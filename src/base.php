@@ -48,7 +48,7 @@ abstract class base extends \PMVC\HashMap
         if (!\PMVC\isArray($inputs)) {
             $inputs = array();
         }
-        $arr = \PMVC\mergeDefault(
+        $arr = \PMVC\arrayReplace(
             $this->getDefault(),
             $inputs
         );
